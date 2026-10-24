@@ -1,0 +1,10 @@
+{
+  "llm_enabled": true,
+  "llm_url": "https://ollama.com/api/chat",
+  "llm_api_key": "",
+  "llm_model": "gemma4:31b",
+  "llm_timeout_ms": 30000,
+  "llm_max_calls_per_run": 30,
+  "llm_max_image_width": 720,
+  "llm_jpeg_quality": 50
+}

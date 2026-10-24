@@ -12,9 +12,10 @@ let YoloTrainHelper = singletonRequire('YoloTrainHelper')
 let warningFloaty = singletonRequire('WarningFloaty')
 let NotificationHelper = singletonRequire('Notification')
 
-let BaseSignRunner = require('./BaseSignRunner.js')
+let BaseSignRunner = require('./BaseSignRunner2.js')
 function BeanCollector () {
   let _this = this
+  let _app = app
   this.initStorages = function () {
     this.dailyTaskStorage = this.createStoreOperator('jingdong_daily_task', { executed: false })
     this.luckySignFailedCounter = this.createStoreOperator('luckySignFailed', { count: 0 })
@@ -72,6 +73,9 @@ function BeanCollector () {
   /***********************
    * 综合操作
    ***********************/
+  this.setApp = function (obj) {
+    _app = obj
+  }
 
   /**
    * 通过我的进入签到页面
@@ -94,7 +98,7 @@ function BeanCollector () {
 
   function openMine (retry) {
     if (commonFunctions.myCurrentPackage() != _package_name) {
-      app.launchPackage(_package_name)
+      _app.launchPackage(_package_name)
       _this.pushLog('打开京东APP')
       sleep(2000)
     }
@@ -109,10 +113,13 @@ function BeanCollector () {
     }
     return false
   }
+  function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
 
   function openHome () {
     if (commonFunctions.myCurrentPackage() != _package_name) {
-      app.launchPackage(_package_name)
+      _app.launchPackage(_package_name)
       _this.pushLog('打开京东APP')
       sleep(2000)
     }
@@ -306,7 +313,7 @@ function BeanCollector () {
       return true
     }
     this.pushLog('执行种豆得豆')
-    debugInfo(['种豆得豆子任务信息{}', JSON.stringify(BEAN)])
+    logUtils.debugInfo(['种豆得豆子任务信息{}', JSON.stringify(BEAN)])
     if (openPlant()) {
       if (this.doDailyTasks()) {
         // 完成后标记任务完成
@@ -557,7 +564,7 @@ function BeanCollector () {
       this.displayButtonAndClick(signBtn, '签到领金贴')
     }
     this.pushLog('重新打开京东APP')
-    app.launchPackage(_package_name)
+    _app.launchPackage(_package_name)
     sleep(1000)
     if (this.checkDoubleCheckDone()) {
       this.setSubTaskExecuted(DOUBLE_SIGN)
@@ -601,7 +608,7 @@ function BeanCollector () {
     this.pushLog('返回任务抽屉')
     if (commonFunctions.myCurrentPackage() != _package_name) {
       this.pushLog('当前未打开京东APP')
-      app.launchPackage(_package_name)
+      _app.launchPackage(_package_name)
       sleep(2000)
     }
     automator.back()
@@ -1087,7 +1094,7 @@ function BeanCollector () {
             parentThis.pushWarningLog('打开抽屉失败，关闭并重新打开')
             automator.back()
             sleep(1000)
-            return this.doTasks()
+            return //this.doTasks()
           }
         }
       }

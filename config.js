@@ -13,10 +13,10 @@ custom_config = custom_config || { supported_signs: [] }
 let default_config = {
   record_failed_info: false,
   not_lingering_float_window: true,
-  github_url: 'https://github.com/TonyJiangWJ/Unify-Sign',
+  github_url: 'https://github.com/makelage/Unify-Sign',
   // github release url 用于检测更新状态
-  github_latest_url: 'https://api.github.com/repos/TonyJiangWJ/Unify-Sign/releases/latest',
-  history_tag_url: 'https://api.github.com/repos/TonyJiangWJ/Unify-Sign/tags',
+  github_latest_url: 'https://api.github.com/repos/makelage/Unify-Sign/releases/latest',
+  history_tag_url: 'https://api.github.com/repos/makelage/Unify-Sign/tags',
   killAppWithGesture: true,
   thread_name_prefix: 'unify_sign_',
   notificationId: 113,
@@ -174,13 +174,26 @@ let default_config = {
       script: 'WangShangGuoWang.js',
       enabled: true
     }
-  ].concat(custom_config.supported_signs || [])
+  ].concat(custom_config.supported_signs || []),
+  // ===== 多模态 LLM 视觉兜底（Ollama 云端），可视化配置 /advance/llm =====
+  // 总开关：关闭后所有 LLM 调用直接返回，不影响其他功能
+  llm_enabled: true,
+  // ollama 云端 API 地址
+  llm_url: 'https://ollama.com/api/chat',
+  // ollama 云端 key：此处留空时回退读脚本根目录 llm_key.txt（含密钥，不入库）
+  llm_api_key: '',
+  // 模型名称
+  llm_model: 'gemma4:31b',
+  // 单次请求超时（毫秒）
+  llm_timeout_ms: 30000,
+  // 单次运行调用次数硬上限，防止失控计费
+  llm_max_calls_per_run: 30,
 }
 // 不同项目需要设置不同的storageName，不然会导致配置信息混乱
 let CONFIG_STORAGE_NAME = 'unify_sign'
 let PROJECT_NAME = '聚合签到'
-// 公共扩展
-let config = require('./config_ex.js')(default_config, { CONFIG_STORAGE_NAME, PROJECT_NAME })
+// 公共扩展（llm_api_key 纳入 securityFields，保存时 AES 加密、读取时自动解密，对 UI 透明）
+let config = require('./config_ex.js')(default_config, { CONFIG_STORAGE_NAME, PROJECT_NAME, securityFields: ['llm_api_key'] })
 
 // 签到任务信息字段需要额外处理
 let storageConfig = storages.create(CONFIG_STORAGE_NAME)

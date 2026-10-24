@@ -18,6 +18,7 @@ const loadJsList = [
   './js/components/configuration/TaskScheduleList.js',
   './js/components/configuration/SignConfig.js',
   './js/components/configuration/OCRConfig.js',
+  './js/components/configuration/LlmConfig.js',
   './js/components/Index.js',
 ]
 /**

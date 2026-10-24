@@ -18,7 +18,7 @@ try {
 importClass(com.tony.listener.DownloaderListener)
 importClass(com.tony.downloader.GithubHistoryTagDownloader)
 resolver()
-let apiUrl = 'https://api.github.com/repos/TonyJiangWJ/Unify-Sign/tags'
+let apiUrl = 'https://api.github.com/repos/makelage/Unify-Sign/tags'
 let downloader = new GithubHistoryTagDownloader(apiUrl)
 
 let targetOutputDir = FileUtils.getRealMainScriptPath(true) + "/history_version"

@@ -29,6 +29,10 @@ let Index = {
           link: '/advance/ocr'
         },
         {
+          title: '大模型兜底设置',
+          link: '/advance/llm'
+        },
+        {
           title: '高级设置',
           link: '/advance/common'
         },

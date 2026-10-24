@@ -25,6 +25,7 @@ const router = new VueRouter({
     { path: '/advance/videoPackage', component: VideoPackageConfig, meta: { index: 1, title: '视频应用设置' } },
     { path: '/advance/common', component: AdvanceCommonConfig, meta: { index: 1 } },
     { path: '/advance/ocr', component: OCRConfig, meta: { index: 1 } },
+    { path: '/advance/llm', component: LlmConfig, meta: { index: 1, title: '大模型兜底设置' } },
     { path: '/about', component: About, meta: { index: 1 } },
     { path: '/sponsor', component: Sponsor, meta: { index: 1, title: '支持作者' } },
     { path: '/about/develop', component: DevelopConfig, meta: { index: 2, title: '开发模式' } },

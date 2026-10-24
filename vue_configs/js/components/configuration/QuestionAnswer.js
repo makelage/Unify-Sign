@@ -128,7 +128,7 @@ const QuestionAnswer = {
   },
   methods: {
     doQuery: function () {
-      return API.get('https://api.github.com/repos/TonyJiangWJ/Unify-Sign/issues?labels=documentation').then(resp => {
+      return API.get('https://api.github.com/repos/makelage/Unify-Sign/issues?labels=documentation').then(resp => {
         this.queryResult = resp
         this.contentFrom = 'Github'
         return Promise.resolve(true)
@@ -200,14 +200,14 @@ const Readme = {
     markdownContent: function () {
       let content = Base64.decode(this.base64Content)
       // console.log(content)
-      content = content.replace(/\(\.([^\)]+)\)/g, '(https://github.com/TonyJiangWJ/Unify-Sign/raw/master$1)')
+      content = content.replace(/\(\.([^\)]+)\)/g, '(https://github.com/makelage/Unify-Sign/raw/master$1)')
       // console.log(content)
       return content
     }
   },
   methods: {
     getReadme: function () {
-      API.get(`https://api.github.com/repos/TonyJiangWJ/Unify-Sign/contents/README.md?ref=master`)
+      API.get(`https://api.github.com/repos/makelage/Unify-Sign/contents/README.md?ref=master`)
       .then(resp => {
         this.noAccessPerm = false
         this.base64Content = resp.content
@@ -254,7 +254,7 @@ const HistoryRelease = {
   data () {
     return {
       loading: false,
-      releasesUrl: 'https://api.github.com/repos/TonyJiangWJ/Unify-Sign/releases',
+      releasesUrl: 'https://api.github.com/repos/makelage/Unify-Sign/releases',
       historyReleases: []
     }
   },
